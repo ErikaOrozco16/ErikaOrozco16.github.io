@@ -1,0 +1,29 @@
+*una empresa de mensajeria necesita entregar 1000 paquetes en la ciudad de tepic, 
+como organizarian la informacion para encontrar la ruta mas eficiente?*
+
+Seria crear una aplicacion en la que los clientes registren sus datos , ya sea nombre
+, telefono , correo y direccion. ya con estos datos y utilizando la ayuda de un mapa 
+trazar rutas que puedan tomar los trabajadores, a su vez los trabajadores tengan que
+registrar todos los paquetes que repartiran, de esta manera cada zona tiene un repartidor 
+asignado y que esto se les notifique a los clientes.
+
+
+
+Como explicarian a un niño de 10 años que signifca "definir algo en terminos de si mismo"? trataría de explicar con ejemplos .
+
+tarea - funcion palindromos
+
+---------------------------------------------------------------------------------
+Clase 2
+tarea:
+Funcion EsPalindromo(cadena) : Booleano
+    Si longitud(cadena) <= 1 Entonces
+        Retornar Verdadero
+    Si cadena[0] ≠ cadena[último] Entonces
+        Retornar Falso
+    Retornar EsPalindromo(cadena[1 .. último-1])
+FinFuncion
+
+---------------------------------------------------------------------------------
+las siguientes actividades las realice en equipo con mi compañero ricardo
+
