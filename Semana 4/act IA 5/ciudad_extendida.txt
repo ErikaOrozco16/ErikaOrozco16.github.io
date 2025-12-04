@@ -1,0 +1,25 @@
+1;Altavista;5,6;4,7
+2;Pinar Norte;6,7;6,5
+3;Bosque Azul;7,8;8,4
+4;Colinas Sur;8,9;9,6
+5;Monte Verde;1,10,11;4,3,6
+6;Nueva Aurora;1,2,10,12;7,6,5,8
+7;Las Lomas;2,3,11,13;5,8,6,7
+8;Real Campestre;3,4,12;4,6,7
+9;Villa Serena;4,13;6,8
+10;Centro Histórico;5,6,11,12,14;3,5,4,6,5
+11;Mercado Central;5,7,10,13,15;6,6,4,5,5
+12;Terminal Central;6,8,10,14,15;8,7,6,4,3
+13;Distrito Financiero;7,9,11,14,15;7,8,5,4,4
+14;Zona Rosa;10,12,13,15,16;5,4,4,3,6
+15;Plaza Mayor;11,12,13,14,16;5,3,4,3,7
+16;Gran Alameda;14,15,17;6,7,5
+17;Parque Industrial;16,18,19;5,4,7
+18;Ribera Este;17,19,20;4,6,5
+19;Providencia;17,18,20;7,6,5
+20;Jardines del Sol;18,19,21;5,5,7
+21;Llanos Poniente;20,22;7,6
+22;Nuevo Horizonte;21,23,24;6,4,5
+23;Mirador Alto;22,25;4,5
+24;San Fermín;22,25;5,4
+25;Villa Bonita;23,24;5,4
