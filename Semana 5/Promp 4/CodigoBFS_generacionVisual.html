@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BFS - Visualización del grafo</title>
+
+  <!-- Mermaid (CDN) -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+  </script>
+
+  <style>
+    body { 
+      font-family: Inter, Roboto, Arial, sans-serif; margin: 28px; line-height:1.5; color:#111;
+      background-color: #999;
+     }
+    h1 { margin-bottom: 6px; background-color: #f0f0f0;}
+    p.lead { margin-top: 0; color:#444; background-color: #f0f0f0;}
+    section { margin: 20px 0; padding: 14px; border-radius: 8px; background:#fbfbfb; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items:start; }
+    pre { background:#f5f5f5; padding:10px; border-radius:6px; overflow:auto; }
+    table { border-collapse: collapse; width:100%; max-width:900px; }
+    table th, table td { border:1px solid #dcdcdc; padding:8px 10px; text-align:left; font-family: monospace; }
+    table th { background:#f0f0f0; }
+    .small { font-size:0.9rem; color:#555; }
+    footer { margin-top:18px; color:#666; font-size:0.9rem; margin-bottom: 4px; background-color: #f5f5f5;}
+    @media (max-width:900px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <h1>Visualización BFS — Grafo de ejemplo</h1>
+  <p class="lead">Grafo (lista de adyacencia): <code>{1:[2,3], 2:[1,4,5], 3:[1,6], 4:[2], 5:[2,7], 6:[3], 7:[5]}</code> — Nodo inicial: <strong>1</strong></p>
+
+  <section>
+    <h2>1) Diagrama Mermaid con aristas etiquetadas</h2>
+    <p class="small">Copia este bloque Mermaid tal cual si quieres usarlo aparte; aquí también se renderiza.</p>
+
+    <div class="mermaid">
+graph LR
+    1 ---|a:1–2| 2
+    1 ---|b:1–3| 3
+    2 ---|c:2–4| 4
+    2 ---|d:2–5| 5
+    3 ---|e:3–6| 6
+    5 ---|f:5–7| 7
+    </div>
+
+    <p class="small">Nota: las etiquetas de arista (a,b,c...) se usan solo como ejemplo —si prefieres, pon nombres relevantes (peso, tipo, etc.).</p>
+  </section>
+
+  <section>
+    <h2>2) Tabla paso a paso — Ejecución BFS desde 1</h2>
+    <p class="small">Formato: <em>Iteración</em> = cuenta de veces que se desencola un nodo (inicio en 0 para el estado inicial), <em>Cola</em> = contenido de la cola antes de desencolar en esa iteración, <em>Nodo Actual</em> = nodo desencolado, <em>Visitados</em> = conjunto de nodos marcados como visitados hasta ese momento, <em>Nivel</em> = nivel del nodo actual (distancia en aristas desde 1).</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Iteración</th>
+          <th>Cola</th>
+          <th>Nodo Actual</th>
+          <th>Visitados</th>
+          <th>Nivel (Nodo Actual)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0</td>
+          <td>[1]</td>
+          <td>-</td>
+          <td>{1}</td>
+          <td>—</td>
+        </tr>
+
+        <tr>
+          <td>1</td>
+          <td>[2, 3]</td>
+          <td>1</td>
+          <td>{1, 2, 3}</td>
+          <td>0 → 1 procesa vecinos → nivel(2)=1, nivel(3)=1</td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td>[3, 4, 5]</td>
+          <td>2</td>
+          <td>{1, 2, 3, 4, 5}</td>
+          <td>1</td>
+        </tr>
+
+        <tr>
+          <td>3</td>
+          <td>[4, 5, 6]</td>
+          <td>3</td>
+          <td>{1, 2, 3, 4, 5, 6}</td>
+          <td>1</td>
+        </tr>
+
+        <tr>
+          <td>4</td>
+          <td>[5, 6]</td>
+          <td>4</td>
+          <td>{1, 2, 3, 4, 5, 6}</td>
+          <td>2</td>
+        </tr>
+
+        <tr>
+          <td>5</td>
+          <td>[6, 7]</td>
+          <td>5</td>
+          <td>{1, 2, 3, 4, 5, 6, 7}</td>
+          <td>2</td>
+        </tr>
+
+        <tr>
+          <td>6</td>
+          <td>[7]</td>
+          <td>6</td>
+          <td>{1, 2, 3, 4, 5, 6, 7}</td>
+          <td>2</td>
+        </tr>
+
+        <tr>
+          <td>7</td>
+          <td>[]</td>
+          <td>7</td>
+          <td>{1, 2, 3, 4, 5, 6, 7}</td>
+          <td>3</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="small">Resumen por niveles: Nivel 0: {1} • Nivel 1: {2,3} • Nivel 2: {4,5,6} • Nivel 3: {7}</p>
+  </section>
+
+  <section>
+    <h2>3) Sugerencias y ejemplo para colorear nodos por nivel en Mermaid</h2>
+    <p class="small">Mermaid permite definir <code>classDef</code> y asignar clases a nodos. A continuación tienes un bloque Mermaid listo que aplica colores por nivel.</p>
+
+    <div class="mermaid">
+graph LR
+    1 --- 2
+    1 --- 3
+    2 --- 4
+    2 --- 5
+    3 --- 6
+    5 --- 7
+
+    classDef lvl0 fill:#ffdd99,stroke:#333,stroke-width:2px;
+    classDef lvl1 fill:#a3d9ff,stroke:#333,stroke-width:2px;
+    classDef lvl2 fill:#c9f7b6,stroke:#333,stroke-width:2px;
+    classDef lvl3 fill:#f7b6d9,stroke:#333,stroke-width:2px;
+
+    class 1 lvl0;
+    class 2,3 lvl1;
+    class 4,5,6 lvl2;
+    class 7 lvl3;
+    </div>
+
+    <p class="small">Sugerencia de paleta (accesible y clara):<br>
+      • Nivel 0: naranja suave (inicio) — destaca el origen.<br>
+      • Nivel 1: azul claro — primeros vecinos.<br>
+      • Nivel 2: verde suave — expansión intermedia.<br>
+      • Nivel 3: rosa pastel — fronteras más lejanas.</p>
+
+    <p class="small">Consejos prácticos:</p>
+    <ul class="small">
+      <li>Usa contraste suficiente entre fill y stroke para accesibilidad.</li>
+      <li>Si tu informe será impreso en B/N, usa patrones o grosores distintos en lugar de color.</li>
+      <li>Si quieres animación paso a paso, puedes generar una imagen por iteración o usar una librería JS para actualizar clases dinámicamente.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <strong>Documentacion:</strong>
+    <ul class="small">
+      <li>Archivo BFS: Creado por la IA y modificado por mi.</li>
+      <li>Modificaciones : modifique el estilo del fondo y el texto del algunos titulo para que fueran mas esteticos a la vista y ademas del tipo de letra.</li>
+    </ul>
+  </footer>
+
+</body>
+</html>
